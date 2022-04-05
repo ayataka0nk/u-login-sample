@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUruApi } from "../hooks/api/fetchUruApi";
+import { fetchUruApi } from "../foundations/api/fetchUruApi";
 
 type User = {
   email: string;

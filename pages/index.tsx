@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { fetchLoginApi } from "../hooks/api/fetchLoginApi";
+import { fetchLoginApi } from "../foundations/api/fetchLoginApi";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
