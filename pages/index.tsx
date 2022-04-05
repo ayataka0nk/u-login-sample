@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { fetchLoginApi } from "../foundations/api/fetchLoginApi";
+import { saveToken } from "../foundations/token";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
   const onLoginButtonClick = async () => {
     const result = await fetchLoginApi({ email, password });
     if (result.status === 200) {
+      saveToken(result.token)
       router.push("/top");
     } else {
       setError(result.message);

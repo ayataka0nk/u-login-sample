@@ -1,18 +1,24 @@
+import { getToken } from "../token";
+import { baseUrl } from "./constants";
+
 const baseHeaders = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };
 
 const baseInit: Pick<RequestInit, "mode" | "credentials"> = {
-  mode: "cors",
   credentials: "include",
 };
 
 export const fetchUruApi = async (input: RequestInfo, init?: RequestInit) => {
-  const response = await fetch(input, {
+  const response = await fetch(baseUrl + input, {
     ...baseInit,
     ...init,
-    headers: { ...baseHeaders, ...init?.headers },
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      ...baseHeaders,
+      ...init?.headers,
+    },
   });
   return response;
 };

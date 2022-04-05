@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
+import { baseUrl } from "../foundations/api/constants";
 import { fetchUruApi } from "../foundations/api/fetchUruApi";
+import { fetchClientApi } from "../foundations/api/fetchClientApi";
 
-type User = {
+type Client = {
   email: string;
-  name: string;
 };
 
 const Top = () => {
-  const [user, setUser] = useState<User>({
+  const [client, setClient] = useState<Client>({
     email: "",
-    name: "",
   });
   useEffect(() => {
     const asyncFunc = async () => {
-      const result = await fetchUruApi("https://localhost/api/user");
+      const result = await fetchClientApi();
       if (result.status === 200) {
-        const body = await result.json();
-        setUser({
-          email: body.email,
-          name: body.name,
+        setClient({
+          email: result.client.email,
         });
       }
     };
@@ -27,8 +25,7 @@ const Top = () => {
   return (
     <div>
       <div>ログイン成功後のページ</div>
-      <div>{user.email}</div>
-      <div>{user.name}</div>
+      <div>{client.email}</div>
     </div>
   );
 };

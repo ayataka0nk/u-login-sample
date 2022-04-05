@@ -1,12 +1,20 @@
+import { saveToken } from "../token";
+import { baseUrl } from "./constants";
 import { fetchUruApi } from "./fetchUruApi";
 
 type FetchLoginApiParams = {
   email: string;
   password: string;
 };
+
+type FetchLoginApiResponseBody = {
+  token?: string;
+};
+
 type FetchLoginApiResult =
   | {
       status: 200;
+      token: string;
     }
   | {
       status: 401;
@@ -21,19 +29,21 @@ export const fetchLoginApi = async ({
   email,
   password,
 }: FetchLoginApiParams): Promise<FetchLoginApiResult> => {
-  const body = {
+  const requestBody = {
     email: email,
     password: password,
   };
   try {
-    await fetchUruApi("https://localhost/sanctum/csrf-cookie");
-    const response = await fetchUruApi("https://localhost/api/login", {
+    const response = await fetchUruApi("/api/login", {
       method: "POST",
-      body: JSON.stringify(body),
+      body: JSON.stringify(requestBody),
     });
+    const responseBody: FetchLoginApiResponseBody = await response.json();
+
     if (response.status === 200) {
       return {
         status: 200,
+        token: responseBody.token || "",
       };
     } else if (response.status === 401) {
       return {
