@@ -20,7 +20,7 @@ type FetchClientApiResult =
 
 export const fetchClientApi = async (): Promise<FetchClientApiResult> => {
   //ログインが必要なAPI
-  const res = await fetchUruApi("/api/client");
+  const res = await fetchUruApi("/api/client/client");
   const resBody: FetchClientApiResponseBody = await res.json();
   if (res.status === 200) {
     return {

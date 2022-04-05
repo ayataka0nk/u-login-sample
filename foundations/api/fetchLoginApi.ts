@@ -34,7 +34,7 @@ export const fetchLoginApi = async ({
     password: password,
   };
   try {
-    const response = await fetchUruApi("/api/login", {
+    const response = await fetchUruApi("/api/auth/client/login", {
       method: "POST",
       body: JSON.stringify(requestBody),
     });
