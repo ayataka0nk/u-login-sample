@@ -34,13 +34,13 @@ export const fetchLoginApi = async ({
     password: password,
   };
   try {
-    const response = await fetchUruApi("/api/auth/client/login", {
+    const response = await fetchUruApi("/client/login", {
       method: "POST",
       body: JSON.stringify(requestBody),
     });
-    const responseBody: FetchLoginApiResponseBody = await response.json();
 
     if (response.status === 200) {
+      const responseBody: FetchLoginApiResponseBody = await response.json();
       return {
         status: 200,
         token: responseBody.token || "",
